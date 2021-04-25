@@ -1,10 +1,12 @@
-package com.codelogs.zeinholistic.zeinholisticapi.data.models.request.patient
+package com.codelogs.zeinholistic.restful.data.models.request.patient
+
+import javax.validation.constraints.NotBlank
 
 
 /**
  **********************************************
- *  zeinholistic-api
- *  |-> com.codelogs.zeinholistic.zeinholisticapi.data.models.request.patient
+ *  zeinholistic-restful
+ *  |-> com.codelogs.zeinholistic.restful.data.models.request.patient
  *    |-> CreatePatientRequest.kt
  * --------------------------------------------
  * Created by Mudassir 🧑🏻‍💻
@@ -15,12 +17,22 @@ package com.codelogs.zeinholistic.zeinholisticapi.data.models.request.patient
  * © 2021 | All Right Reserved
  */
 
-data class EditPatientRequest(
+data class UpdatePatientRequestRequest(
+    @field:NotBlank
     val id: String,
+
+    @field:NotBlank
     val name: String,
+
+    @field:NotBlank
     val sex: String,
+
+    @field:NotBlank
     val dateBirth: String,
+
+    @field:NotBlank
     val address: String,
+
+    @field:NotBlank
     val phoneNumber: String,
-    val updatedAt: String
 )

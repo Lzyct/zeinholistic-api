@@ -1,9 +1,11 @@
-package com.codelogs.zeinholistic.zeinholisticapi.data.models.request.medicalrecord
+package com.codelogs.zeinholistic.restful.data.models.request.medicalrecord
+
+import javax.validation.constraints.NotBlank
 
 /**
  **********************************************
- *  zeinholistic-api
- *  |-> com.codelogs.zeinholistic.zeinholisticapi.data.models.request.medicalrecord
+ *  zeinholistic-restful
+ *  |-> com.codelogs.zeinholistic.restful.data.models.request.medicalrecord
  *    |-> CreateMedicalRecord.kt
  * --------------------------------------------
  * Created by Mudassir 🧑🏻‍💻
@@ -14,14 +16,17 @@ package com.codelogs.zeinholistic.zeinholisticapi.data.models.request.medicalrec
  * © 2021 | All Right Reserved
  */
 
-data class CreateMedicalRecord(
+data class UpdateMedicalRecordRequest(
+    @field:NotBlank
     val idPatient: String,
+
+    @field:NotBlank
     val mainComplaint: String,
+
     val additionalComplaint: String? = "",
     val historyOfDisease: String? = "",
     val checkUpResult: String? = "",
     val conclusionDiagnosis: String? = "",
     val suggestion: String? = "",
     val examiner: String? = "",
-    val createdAt: String,
 )
