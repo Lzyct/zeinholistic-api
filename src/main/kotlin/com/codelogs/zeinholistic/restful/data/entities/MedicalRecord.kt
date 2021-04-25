@@ -1,4 +1,4 @@
-package com.codelogs.zeinholistic.zeinholisticapi.data.entities
+package com.codelogs.zeinholistic.restful.data.entities
 
 import java.util.*
 import javax.persistence.Column
@@ -8,8 +8,8 @@ import javax.persistence.Table
 
 /**
  **********************************************
- *  zeinholistic-api
- *  |-> com.codelogs.zeinholistic.zeinholisticapi.data.entities
+ *  zeinholistic-restful
+ *  |-> com.codelogs.zeinholistic.restful.data.entities
  *    |-> MedicalRecord.kt
  * --------------------------------------------
  * Created by Mudassir 🧑🏻‍💻

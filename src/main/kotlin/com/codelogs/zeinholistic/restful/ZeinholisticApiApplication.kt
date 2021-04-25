@@ -1,4 +1,4 @@
-package com.codelogs.zeinholistic.zeinholisticapi
+package com.codelogs.zeinholistic.restful
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

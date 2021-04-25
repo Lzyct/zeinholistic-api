@@ -1,1 +1,1 @@
-rootProject.name = "zeinholistic-api"
+rootProject.name = "zeinholistic-restful"

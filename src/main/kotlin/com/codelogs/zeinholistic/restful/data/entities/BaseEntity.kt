@@ -1,11 +1,11 @@
-package com.codelogs.zeinholistic.zeinholisticapi.data.entities
+package com.codelogs.zeinholistic.restful.data.entities
 
 import java.util.*
 
 /**
  **********************************************
- *  zeinholistic-api
- *  |-> com.codelogs.zeinholistic.zeinholisticapi.data.entities
+ *  zeinholistic-restful
+ *  |-> com.codelogs.zeinholistic.restful.data.entities
  *    |-> BaseEntity.kt
  * --------------------------------------------
  * Created by Mudassir 🧑🏻‍💻
