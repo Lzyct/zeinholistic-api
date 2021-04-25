@@ -1,19 +1,17 @@
-package com.codelogs.zeinholistic.zeinholisticapi.data.models.request.medicalrecord
+package com.codelogs.zeinholistic.restful.error
 
 /**
  **********************************************
  *  zeinholistic-api
- *  |-> com.codelogs.zeinholistic.zeinholisticapi.data.models.request.medicalrecord
- *    |-> CreateMedicalRecord.kt
+ *  |-> com.codelogs.zeinholistic.restful.error
+ *    |-> NotFoundException.kt
  * --------------------------------------------
  * Created by Mudassir 🧑🏻‍💻
- * on 📅 25/04/21 🕰 17:00 with ❤️
+ * on 📅 25/04/21 🕰 23:48 with ❤️
  * email : hey.mudassir@gmail.com
  * github : https://www.github.com/ukieTux
  **********************************************
  * © 2021 | All Right Reserved
  */
-
-data class DeleteMedicalRecord(
-    val idPatient: String,
-)
+class NotFoundException : Exception() {
+}
