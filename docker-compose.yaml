@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  zein-holistic-mysql:
+    container_name: 'zein-holistic-mysql'
+    image: mysql:5.7.33
+      restart: always
+      environment:
+        MYSQL_ROOT_PASSWORD: "sembaran6"
+        MYSQL_USER: "ukieTux"
+        MYSQL_PASSWORD: "sembaran6"
+        MYSQL_DATABASE: "zeinholistic"
+      ports:
+        - "3306:3306"
+      volumes:
+        - $HOME/Docker/zeinholistic-mysql:/var/lib/mysql

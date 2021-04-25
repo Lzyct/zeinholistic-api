@@ -1,0 +1,19 @@
+@startuml
+
+actor "User" as user
+
+node "Zein Holistic Flow RESTful API"{
+component "Controllers" as controllers
+component "Services" as services
+component "Repositories" as repositories
+}
+
+
+database "MySQL" as database
+
+user <--> controllers
+controllers <--> services
+services <--> repositories
+repositories <--> database
+
+@enduml
