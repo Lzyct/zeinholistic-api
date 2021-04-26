@@ -1,6 +1,15 @@
 version: '3.8'
 
 services:
+  zein-holiscitc-api:
+    container_name: "zein-holistic-api"
+    image: zein-holistic-api:1.0.0
+    ports:
+      - 8080:8080
+    environment:
+      DATABASE_USERNAME: ukieTux
+      DATABASE_PASSWORD: sembaran6
+      DATABASE_URL: jdbc:mysql://${MYSQL_HOST:localhost}:3307/zeinholistic
   zein-holistic-mysql:
     container_name: 'zein-holistic-mysql'
     image: mysql:5.7.33
