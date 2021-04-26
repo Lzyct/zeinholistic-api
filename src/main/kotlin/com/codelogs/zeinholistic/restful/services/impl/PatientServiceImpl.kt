@@ -1,16 +1,19 @@
 package com.codelogs.zeinholistic.restful.services.impl
 
 import com.codelogs.zeinholistic.restful.data.entities.Patient
-import com.codelogs.zeinholistic.restful.data.models.request.patient.CreatePatientRequestRequest
-import com.codelogs.zeinholistic.restful.data.models.request.patient.UpdatePatientRequestRequest
+import com.codelogs.zeinholistic.restful.data.models.request.patient.CreatePatientRequest
+import com.codelogs.zeinholistic.restful.data.models.request.patient.ListPatientRequest
+import com.codelogs.zeinholistic.restful.data.models.request.patient.UpdatePatientRequest
 import com.codelogs.zeinholistic.restful.data.models.response.PatientResponse
 import com.codelogs.zeinholistic.restful.error.NotFoundException
 import com.codelogs.zeinholistic.restful.repositories.PatientRepository
 import com.codelogs.zeinholistic.restful.services.PatientService
 import com.codelogs.zeinholistic.restful.utils.Validation
+import org.springframework.data.domain.PageRequest
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import java.util.*
+import java.util.stream.Collectors
 
 /**
  **********************************************
@@ -32,7 +35,7 @@ class PatientServiceImpl(
     val validation: Validation
 ) : PatientService {
 
-    override fun create(request: CreatePatientRequestRequest): PatientResponse {
+    override fun create(request: CreatePatientRequest): PatientResponse {
         validation.validate(request)
 
         val patient = Patient(
@@ -50,17 +53,35 @@ class PatientServiceImpl(
     }
 
     override fun get(id: String): PatientResponse {
-        val product = findByIdOrNotFound(id)
-        return convertToPatientResponse(product)
+        val patient = findByIdOrNotFound(id)
+        return convertToPatientResponse(patient)
     }
 
-    override fun update(id: String, request: UpdatePatientRequestRequest): PatientResponse {
+    override fun update(id: String, request: UpdatePatientRequest): PatientResponse {
+        val patient = findByIdOrNotFound(id)
+        validation.validate(request)
+
+        patient.apply {
+            name = request.name
+            sex = request.sex
+            address = request.address
+            phoneNumber = request.phoneNumber
+            birthday = request.birthday
+        }
+        patientRepository.save(patient)
+
+        return convertToPatientResponse(patient)
     }
 
     override fun delete(id: String) {
+        val patient = findByIdOrNotFound(id)
+        patientRepository.delete(patient)
     }
 
-    override fun list() {
+    override fun list(request: ListPatientRequest): List<PatientResponse> {
+        val page = patientRepository.findAll(PageRequest.of(request.page, request.size))
+        val patients: List<Patient> = page.get().collect(Collectors.toList())
+        return patients.map { patient -> convertToPatientResponse(patient) }
     }
 
     fun findByIdOrNotFound(id: String): Patient {

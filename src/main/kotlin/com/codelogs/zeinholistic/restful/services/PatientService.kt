@@ -1,7 +1,8 @@
 package com.codelogs.zeinholistic.restful.services
 
-import com.codelogs.zeinholistic.restful.data.models.request.patient.CreatePatientRequestRequest
-import com.codelogs.zeinholistic.restful.data.models.request.patient.UpdatePatientRequestRequest
+import com.codelogs.zeinholistic.restful.data.models.request.patient.CreatePatientRequest
+import com.codelogs.zeinholistic.restful.data.models.request.patient.ListPatientRequest
+import com.codelogs.zeinholistic.restful.data.models.request.patient.UpdatePatientRequest
 import com.codelogs.zeinholistic.restful.data.models.response.PatientResponse
 
 /**
@@ -19,13 +20,13 @@ import com.codelogs.zeinholistic.restful.data.models.response.PatientResponse
  */
 interface PatientService {
 
-    fun create(request: CreatePatientRequestRequest): PatientResponse
+    fun create(request: CreatePatientRequest): PatientResponse
 
     fun get(id: String): PatientResponse
 
-    fun update(id: String, request: UpdatePatientRequestRequest): PatientResponse
+    fun update(id: String, request: UpdatePatientRequest): PatientResponse
 
     fun delete(id: String)
 
-    fun list()
+    fun list(request: ListPatientRequest) : List<PatientResponse>
 }
