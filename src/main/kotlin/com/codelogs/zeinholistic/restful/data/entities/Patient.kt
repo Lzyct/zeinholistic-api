@@ -25,17 +25,17 @@ data class Patient(
     @Id
     val id: String,
     @Column(name = "name")
-    val name: String,
+    var name: String,
     @Column(name = "sex")
-    val sex: String,
+    var sex: String,
     @Column(name = "birthday")
-    val birthday: String,
+    var birthday: String,
     @Column(name = "address")
-    val address: String,
+    var address: String,
     @Column(name = "phone_number")
-    val phoneNumber: String,
+    var phoneNumber: String,
     @Column(name = "createdAt")
     override val createdAt: Date,
     @Column(name = "updatedAt")
-    override val updatedAt: Date?,
+    override var updatedAt: Date?,
     ) : BaseEntity

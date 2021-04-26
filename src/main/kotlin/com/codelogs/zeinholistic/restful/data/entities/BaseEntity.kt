@@ -17,5 +17,5 @@ import java.util.*
  */
 interface BaseEntity {
     abstract val createdAt: Date
-    abstract val updatedAt: Date?
+    abstract var updatedAt: Date?
 }
