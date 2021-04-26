@@ -17,10 +17,7 @@ import javax.validation.constraints.NotBlank
  * © 2021 | All Right Reserved
  */
 
-data class UpdatePatientRequestRequest(
-    @field:NotBlank
-    val id: String,
-
+data class UpdatePatientRequest(
     @field:NotBlank
     val name: String,
 
@@ -28,7 +25,7 @@ data class UpdatePatientRequestRequest(
     val sex: String,
 
     @field:NotBlank
-    val dateBirth: String,
+    val birthday: String,
 
     @field:NotBlank
     val address: String,
