@@ -20,6 +20,6 @@ services:
       MYSQL_PASSWORD: "sembaran6"
       MYSQL_DATABASE: "zeinholistic"
     ports:
-      - "3307:3307"
+      - "3307:3306"
     volumes:
       - $HOME/Docker/zeinholistic-mysql:/var/lib/mysql
