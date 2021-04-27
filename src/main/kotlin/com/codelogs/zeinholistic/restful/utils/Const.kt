@@ -1,4 +1,4 @@
-package static
+package com.codelogs.zeinholistic.restful.utils
 
 /**
  **********************************************
@@ -13,7 +13,7 @@ package static
  **********************************************
  * © 2021 | All Right Reserved
  */
-object Strings {
+object Const {
     const val APP_JSON = "application/json"
     const val SUCCESS = "Success"
     const val ERROR = "Error"
