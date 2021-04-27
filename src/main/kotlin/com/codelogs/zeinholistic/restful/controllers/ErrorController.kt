@@ -1,12 +1,12 @@
 package com.codelogs.zeinholistic.restful.controllers
 
 import com.codelogs.zeinholistic.restful.data.models.response.BaseResponse
+import com.codelogs.zeinholistic.restful.utils.Const
 import javassist.NotFoundException
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestControllerAdvice
-import static.Strings
 import javax.validation.ConstraintViolationException
 
 /**
@@ -31,8 +31,8 @@ class ErrorController {
     fun validationHandler(constraintViolationException: ConstraintViolationException): BaseResponse<String> {
         return BaseResponse(
             code = HttpStatus.BAD_REQUEST.value(),
-            status = Strings.ERROR,
-            data = constraintViolationException.message ?: Strings.ERROR
+            status = Const.ERROR,
+            data = constraintViolationException.message ?: Const.ERROR
         )
     }
 
@@ -41,8 +41,8 @@ class ErrorController {
     fun notFoundHandler(notFoundException: NotFoundException): BaseResponse<String> {
         return BaseResponse(
             code = HttpStatus.NOT_FOUND.value(),
-            status = Strings.ERROR,
-            data = Strings.NOT_FOUND
+            status = Const.ERROR,
+            data = Const.NOT_FOUND
         )
     }
 }

@@ -6,8 +6,8 @@ import com.codelogs.zeinholistic.restful.data.models.request.patient.UpdatePatie
 import com.codelogs.zeinholistic.restful.data.models.response.BaseResponse
 import com.codelogs.zeinholistic.restful.data.models.response.PatientResponse
 import com.codelogs.zeinholistic.restful.services.PatientService
+import com.codelogs.zeinholistic.restful.utils.Const
 import org.springframework.web.bind.annotation.*
-import static.Strings
 
 /**
  **********************************************
@@ -28,27 +28,27 @@ class PatientController(val patientService: PatientService) {
 
     @PostMapping(
         value = ["api/patient"],
-        produces = [Strings.APP_JSON],
-        consumes = [Strings.APP_JSON]
+        produces = [Const.APP_JSON],
+        consumes = [Const.APP_JSON]
     )
     fun createPatient(@RequestBody body: CreatePatientRequest): BaseResponse<PatientResponse> {
         val patientResponse = patientService.create(body)
         return BaseResponse(
             code = 200,
-            status = Strings.SUCCESS,
+            status = Const.SUCCESS,
             data = patientResponse
         )
     }
 
     @GetMapping(
         value = ["api/patient/{idPatient}"],
-        produces = [Strings.APP_JSON]
+        produces = [Const.APP_JSON]
     )
     fun getPatient(@PathVariable("idPatient") id: String): BaseResponse<PatientResponse> {
         val patientResponse = patientService.get(id)
         return BaseResponse(
             code = 200,
-            status = Strings.SUCCESS,
+            status = Const.SUCCESS,
             data = patientResponse
         )
     }
@@ -56,8 +56,8 @@ class PatientController(val patientService: PatientService) {
 
     @PutMapping(
         value = ["api/patient/{idPatient}"],
-        produces = [Strings.APP_JSON],
-        consumes = [Strings.APP_JSON]
+        produces = [Const.APP_JSON],
+        consumes = [Const.APP_JSON]
     )
     fun updatePatient(
         @PathVariable("idPatient") id: String, @RequestBody body: UpdatePatientRequest
@@ -65,27 +65,27 @@ class PatientController(val patientService: PatientService) {
         val patientResponse = patientService.update(id, body)
         return BaseResponse(
             code = 200,
-            status = Strings.SUCCESS,
+            status = Const.SUCCESS,
             data = patientResponse
         )
     }
 
     @DeleteMapping(
         value = ["api/patient/{idPatient}"],
-        produces = [Strings.APP_JSON]
+        produces = [Const.APP_JSON]
     )
     fun deletePatient(@PathVariable(value = "idPatient") id: String): BaseResponse<String> {
         patientService.delete(id)
         return BaseResponse(
             code = 200,
-            status = Strings.SUCCESS,
+            status = Const.SUCCESS,
             data = id
         )
     }
 
     @GetMapping(
         value = ["api/patients"],
-        produces = [Strings.APP_JSON]
+        produces = [Const.APP_JSON]
     )
     fun listPatient(
         @RequestParam(value = "size", defaultValue = "20") size: Int,
@@ -95,7 +95,7 @@ class PatientController(val patientService: PatientService) {
         val patientResponses = patientService.list(request)
         return BaseResponse(
             code = 200,
-            status = Strings.SUCCESS,
+            status = Const.SUCCESS,
             data = patientResponses
         )
     }
