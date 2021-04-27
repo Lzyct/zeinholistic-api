@@ -84,7 +84,7 @@ class PatientController(val patientService: PatientService) {
     }
 
     @GetMapping(
-        value = ["api/products"],
+        value = ["api/patients"],
         produces = [Strings.APP_JSON]
     )
     fun listPatient(
