@@ -85,7 +85,8 @@ class MedicalRecordServiceImpl(
     }
 
     override fun list(request: ListMedicalRecordRequest): List<MedicalRecordResponse> {
-        val page = medicalRecordRepository.findAll(PageRequest.of(request.page, request.size))
+        val page =
+            medicalRecordRepository.findAllByIdPatient(request.idPatient, PageRequest.of(request.page, request.size))
         val medicalRecords: List<MedicalRecord> = page.get().collect(Collectors.toList())
         return medicalRecords.map { medicalRecord -> convertToMedicalRecordResponse(medicalRecord) }
     }
