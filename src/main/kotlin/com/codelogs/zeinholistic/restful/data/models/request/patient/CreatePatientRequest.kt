@@ -19,20 +19,20 @@ import javax.validation.constraints.NotBlank
 
 data class CreatePatientRequest(
     @field:NotBlank
-    val id: String,
+    val id: String?,
 
     @field:NotBlank
-    val name: String,
+    val name: String?,
 
     @field:NotBlank
-    val sex: String,
+    val sex: String?,
 
     @field:NotBlank
-    val birthday: String,
+    val birthday: String?,
 
     @field:NotBlank
-    val address: String,
+    val address: String?,
 
     @field:NotBlank
-    val phoneNumber: String,
+    val phoneNumber: String?,
 )

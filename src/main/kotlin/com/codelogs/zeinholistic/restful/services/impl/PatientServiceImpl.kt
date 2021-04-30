@@ -9,6 +9,7 @@ import com.codelogs.zeinholistic.restful.error.NotFoundException
 import com.codelogs.zeinholistic.restful.repositories.PatientRepository
 import com.codelogs.zeinholistic.restful.services.PatientService
 import com.codelogs.zeinholistic.restful.utils.Validation
+import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -37,14 +38,13 @@ class PatientServiceImpl(
 
     override fun create(request: CreatePatientRequest): PatientResponse {
         validation.validate(request)
-
         val patient = Patient(
             id = "${System.currentTimeMillis()}-${request.name}",
-            name = request.name,
-            sex = request.sex,
-            birthday = request.birthday,
-            address = request.address,
-            phoneNumber = request.phoneNumber,
+            name = request.name!!,
+            sex = request.sex!!,
+            birthday = request.birthday!!,
+            address = request.address!!,
+            phoneNumber = request.phoneNumber!!,
             createdAt = Date(),
             updatedAt = null
         )
@@ -78,10 +78,10 @@ class PatientServiceImpl(
         patientRepository.delete(patient)
     }
 
-    override fun list(request: ListPatientRequest): List<PatientResponse> {
+    override fun list(request: ListPatientRequest): Pair<List<PatientResponse>, Page<Patient>> {
         val page = patientRepository.findAll(PageRequest.of(request.page, request.size))
         val patients: List<Patient> = page.get().collect(Collectors.toList())
-        return patients.map { patient -> convertToPatientResponse(patient) }
+        return Pair(patients.map { patient -> convertToPatientResponse(patient) }, page)
     }
 
     fun findByIdOrNotFound(id: String): Patient {
