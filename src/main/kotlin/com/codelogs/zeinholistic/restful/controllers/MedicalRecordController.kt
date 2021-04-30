@@ -7,6 +7,7 @@ import com.codelogs.zeinholistic.restful.data.models.response.BaseResponse
 import com.codelogs.zeinholistic.restful.data.models.response.MedicalRecordResponse
 import com.codelogs.zeinholistic.restful.services.MedicalRecordService
 import com.codelogs.zeinholistic.restful.utils.Const
+import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.*
 
 /**
@@ -28,8 +29,8 @@ class MedicalRecordController(val medicalRecordService: MedicalRecordService) {
 
     @PostMapping(
         value = ["api/medical-record"],
-        produces = [Const.APP_JSON],
-        consumes = [Const.APP_JSON]
+        produces = [MediaType.APPLICATION_JSON_VALUE],
+        consumes = [MediaType.APPLICATION_JSON_VALUE]
     )
     fun createMedicalRecord(@RequestBody body: CreateMedicalRecordRequest): BaseResponse<MedicalRecordResponse> {
         val medicalRecordResponse = medicalRecordService.create(body)
@@ -42,7 +43,7 @@ class MedicalRecordController(val medicalRecordService: MedicalRecordService) {
 
     @GetMapping(
         value = ["api/medical-record/{idMedicalRecord}"],
-        produces = [Const.APP_JSON]
+        produces = [MediaType.APPLICATION_JSON_VALUE]
     )
     fun getMedicalRecord(@PathVariable("idMedicalRecord") id: Int): BaseResponse<MedicalRecordResponse> {
         val medicalRecordResponse = medicalRecordService.get(id)
@@ -56,8 +57,8 @@ class MedicalRecordController(val medicalRecordService: MedicalRecordService) {
 
     @PutMapping(
         value = ["api/medical-record/{idMedicalRecord}"],
-        produces = [Const.APP_JSON],
-        consumes = [Const.APP_JSON]
+        produces = [MediaType.APPLICATION_JSON_VALUE],
+        consumes = [MediaType.APPLICATION_JSON_VALUE]
     )
     fun updateMedicalRecord(
         @PathVariable("idMedicalRecord") id: Int, @RequestBody body: UpdateMedicalRecordRequest
@@ -72,7 +73,7 @@ class MedicalRecordController(val medicalRecordService: MedicalRecordService) {
 
     @DeleteMapping(
         value = ["api/medical-record/{idMedicalRecord}"],
-        produces = [Const.APP_JSON]
+        produces = [MediaType.APPLICATION_JSON_VALUE]
     )
     fun deleteMedicalRecord(@PathVariable(value = "idMedicalRecord") id: Int): BaseResponse<Int> {
         medicalRecordService.delete(id)
@@ -85,7 +86,7 @@ class MedicalRecordController(val medicalRecordService: MedicalRecordService) {
 
     @GetMapping(
         value = ["api/medical-records"],
-        produces = [Const.APP_JSON]
+        produces = [MediaType.APPLICATION_JSON_VALUE]
     )
     fun listMedicalRecord(
         @RequestParam(value = "idPatient") idPatient: String,

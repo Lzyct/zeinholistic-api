@@ -4,9 +4,12 @@ import com.codelogs.zeinholistic.restful.data.models.request.patient.CreatePatie
 import com.codelogs.zeinholistic.restful.data.models.request.patient.ListPatientRequest
 import com.codelogs.zeinholistic.restful.data.models.request.patient.UpdatePatientRequest
 import com.codelogs.zeinholistic.restful.data.models.response.BaseResponse
+import com.codelogs.zeinholistic.restful.data.models.response.BaseResponsePagination
+import com.codelogs.zeinholistic.restful.data.models.response.PaginationResponse
 import com.codelogs.zeinholistic.restful.data.models.response.PatientResponse
 import com.codelogs.zeinholistic.restful.services.PatientService
 import com.codelogs.zeinholistic.restful.utils.Const
+import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.*
 
 /**
@@ -28,8 +31,8 @@ class PatientController(val patientService: PatientService) {
 
     @PostMapping(
         value = ["api/patient"],
-        produces = [Const.APP_JSON],
-        consumes = [Const.APP_JSON]
+        produces = [MediaType.APPLICATION_JSON_VALUE],
+        consumes = [MediaType.APPLICATION_JSON_VALUE]
     )
     fun createPatient(@RequestBody body: CreatePatientRequest): BaseResponse<PatientResponse> {
         val patientResponse = patientService.create(body)
@@ -42,7 +45,7 @@ class PatientController(val patientService: PatientService) {
 
     @GetMapping(
         value = ["api/patient/{idPatient}"],
-        produces = [Const.APP_JSON]
+        produces = [MediaType.APPLICATION_JSON_VALUE]
     )
     fun getPatient(@PathVariable("idPatient") id: String): BaseResponse<PatientResponse> {
         val patientResponse = patientService.get(id)
@@ -56,8 +59,8 @@ class PatientController(val patientService: PatientService) {
 
     @PutMapping(
         value = ["api/patient/{idPatient}"],
-        produces = [Const.APP_JSON],
-        consumes = [Const.APP_JSON]
+        produces = [MediaType.APPLICATION_JSON_VALUE],
+        consumes = [MediaType.APPLICATION_JSON_VALUE]
     )
     fun updatePatient(
         @PathVariable("idPatient") id: String, @RequestBody body: UpdatePatientRequest
@@ -72,7 +75,7 @@ class PatientController(val patientService: PatientService) {
 
     @DeleteMapping(
         value = ["api/patient/{idPatient}"],
-        produces = [Const.APP_JSON]
+        produces = [MediaType.APPLICATION_JSON_VALUE]
     )
     fun deletePatient(@PathVariable(value = "idPatient") id: String): BaseResponse<String> {
         patientService.delete(id)
@@ -85,18 +88,23 @@ class PatientController(val patientService: PatientService) {
 
     @GetMapping(
         value = ["api/patients"],
-        produces = [Const.APP_JSON]
+        produces = [MediaType.APPLICATION_JSON_VALUE]
     )
     fun listPatient(
         @RequestParam(value = "size", defaultValue = "20") size: Int,
-        @RequestParam(value = "page", defaultValue = "0") page: Int
-    ): BaseResponse<List<PatientResponse>> {
+        @RequestParam(value = "page", defaultValue = "1") page: Int
+    ): BaseResponsePagination<List<PatientResponse>> {
         val request = ListPatientRequest(size = size, page = page)
-        val patientResponses = patientService.list(request)
-        return BaseResponse(
+        val (patientResponses, pagination) = patientService.list(request)
+        return BaseResponsePagination(
             code = 200,
             status = Const.SUCCESS,
-            data = patientResponses
+            data = patientResponses,
+            page = PaginationResponse(
+                totalItems = pagination.totalElements.toInt(),
+                currentPage = pagination.number,
+                totalPages = pagination.totalPages
+            )
         )
     }
 

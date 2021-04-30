@@ -14,7 +14,7 @@ package com.codelogs.zeinholistic.restful.utils
  * © 2021 | All Right Reserved
  */
 object Const {
-    const val APP_JSON = "application/json"
+//    const val APP_JSON = "application/json"
     const val SUCCESS = "Success"
     const val ERROR = "Error"
     const val NOT_FOUND = "Data not found"
