@@ -1,9 +1,12 @@
 package com.codelogs.zeinholistic.restful.services
 
+import com.codelogs.zeinholistic.restful.data.entities.Patient
 import com.codelogs.zeinholistic.restful.data.models.request.patient.CreatePatientRequest
 import com.codelogs.zeinholistic.restful.data.models.request.patient.ListPatientRequest
 import com.codelogs.zeinholistic.restful.data.models.request.patient.UpdatePatientRequest
 import com.codelogs.zeinholistic.restful.data.models.response.PatientResponse
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 
 /**
  **********************************************
@@ -28,5 +31,5 @@ interface PatientService {
 
     fun delete(id: String)
 
-    fun list(request: ListPatientRequest) : List<PatientResponse>
+    fun list(request: ListPatientRequest): Pair<List<PatientResponse>, Page<Patient>>
 }
