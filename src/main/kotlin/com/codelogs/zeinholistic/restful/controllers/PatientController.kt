@@ -9,6 +9,7 @@ import com.codelogs.zeinholistic.restful.data.models.response.PaginationResponse
 import com.codelogs.zeinholistic.restful.data.models.response.PatientResponse
 import com.codelogs.zeinholistic.restful.services.PatientService
 import com.codelogs.zeinholistic.restful.utils.Const
+import com.codelogs.zeinholistic.restful.utils.lastPage
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.*
 
@@ -103,7 +104,7 @@ class PatientController(val patientService: PatientService) {
             page = PaginationResponse(
                 totalItems = pagination.numberOfElements,
                 currentPage = pagination.number,
-                lastPage = pagination.totalPages - 1
+                lastPage = pagination.lastPage()
             )
         )
     }
