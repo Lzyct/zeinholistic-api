@@ -1,9 +1,11 @@
 package com.codelogs.zeinholistic.restful.services
 
+import com.codelogs.zeinholistic.restful.data.entities.MedicalRecord
 import com.codelogs.zeinholistic.restful.data.models.request.medicalrecord.CreateMedicalRecordRequest
 import com.codelogs.zeinholistic.restful.data.models.request.medicalrecord.ListMedicalRecordRequest
 import com.codelogs.zeinholistic.restful.data.models.request.medicalrecord.UpdateMedicalRecordRequest
 import com.codelogs.zeinholistic.restful.data.models.response.MedicalRecordResponse
+import org.springframework.data.domain.Page
 
 /**
  **********************************************
@@ -28,5 +30,5 @@ interface MedicalRecordService {
 
     fun delete(id: Int)
 
-    fun list(request: ListMedicalRecordRequest): List<MedicalRecordResponse>
+    fun list(request: ListMedicalRecordRequest): Pair<List<MedicalRecordResponse>, Page<MedicalRecord>>
 }

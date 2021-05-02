@@ -9,6 +9,7 @@ import com.codelogs.zeinholistic.restful.error.NotFoundException
 import com.codelogs.zeinholistic.restful.repositories.MedicalRecordRepository
 import com.codelogs.zeinholistic.restful.services.MedicalRecordService
 import com.codelogs.zeinholistic.restful.utils.Validation
+import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -84,11 +85,11 @@ class MedicalRecordServiceImpl(
         medicalRecordRepository.delete(medicalRecord)
     }
 
-    override fun list(request: ListMedicalRecordRequest): List<MedicalRecordResponse> {
+    override fun list(request: ListMedicalRecordRequest): Pair<List<MedicalRecordResponse>, Page<MedicalRecord>> {
         val page =
             medicalRecordRepository.findAllByIdPatient(request.idPatient, PageRequest.of(request.page, request.size))
         val medicalRecords: List<MedicalRecord> = page.get().collect(Collectors.toList())
-        return medicalRecords.map { medicalRecord -> convertToMedicalRecordResponse(medicalRecord) }
+        return Pair(medicalRecords.map { medicalRecord -> convertToMedicalRecordResponse(medicalRecord) }, page)
     }
 
     fun findByIdOrNotFound(id: Int): MedicalRecord {
