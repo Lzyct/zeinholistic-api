@@ -19,9 +19,6 @@ import javax.validation.constraints.NotBlank
 
 data class CreatePatientRequest(
     @field:NotBlank
-    val id: String?,
-
-    @field:NotBlank
     val name: String?,
 
     @field:NotBlank
