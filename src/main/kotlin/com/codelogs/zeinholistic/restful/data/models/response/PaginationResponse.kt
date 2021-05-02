@@ -16,5 +16,5 @@ package com.codelogs.zeinholistic.restful.data.models.response
 data class PaginationResponse(
     val totalItems: Int,
     val currentPage: Int,
-    val totalPages: Int
+    val lastPage: Int
 )
