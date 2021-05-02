@@ -39,7 +39,7 @@ class PatientServiceImpl(
     override fun create(request: CreatePatientRequest): PatientResponse {
         validation.validate(request)
         val patient = Patient(
-            id = "${System.currentTimeMillis()}-${request.name}",
+            id = "ZH-${System.currentTimeMillis()}",
             name = request.name!!,
             sex = request.sex!!,
             birthday = request.birthday!!,
