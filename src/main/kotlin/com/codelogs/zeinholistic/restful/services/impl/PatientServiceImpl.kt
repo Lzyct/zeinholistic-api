@@ -62,11 +62,12 @@ class PatientServiceImpl(
         validation.validate(request)
 
         patient.apply {
-            name = request.name
-            sex = request.sex
-            address = request.address
-            phoneNumber = request.phoneNumber
-            birthday = request.birthday
+            name = request.name!!
+            sex = request.sex!!
+            address = request.address!!
+            phoneNumber = request.phoneNumber!!
+            birthday = request.birthday!!
+            updatedAt = Date()
         }
         patientRepository.save(patient)
 
