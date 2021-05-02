@@ -4,9 +4,12 @@ import com.codelogs.zeinholistic.restful.data.models.request.medicalrecord.Creat
 import com.codelogs.zeinholistic.restful.data.models.request.medicalrecord.ListMedicalRecordRequest
 import com.codelogs.zeinholistic.restful.data.models.request.medicalrecord.UpdateMedicalRecordRequest
 import com.codelogs.zeinholistic.restful.data.models.response.BaseResponse
+import com.codelogs.zeinholistic.restful.data.models.response.BaseResponsePagination
 import com.codelogs.zeinholistic.restful.data.models.response.MedicalRecordResponse
+import com.codelogs.zeinholistic.restful.data.models.response.PaginationResponse
 import com.codelogs.zeinholistic.restful.services.MedicalRecordService
 import com.codelogs.zeinholistic.restful.utils.Const
+import com.codelogs.zeinholistic.restful.utils.lastPage
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.*
 
@@ -29,10 +32,10 @@ class MedicalRecordController(val medicalRecordService: MedicalRecordService) {
 
     @PostMapping(
         value = ["api/medical-record"],
+        consumes = [MediaType.APPLICATION_FORM_URLENCODED_VALUE],
         produces = [MediaType.APPLICATION_JSON_VALUE],
-        consumes = [MediaType.APPLICATION_JSON_VALUE]
     )
-    fun createMedicalRecord(@RequestBody body: CreateMedicalRecordRequest): BaseResponse<MedicalRecordResponse> {
+    fun createMedicalRecord(body: CreateMedicalRecordRequest): BaseResponse<MedicalRecordResponse> {
         val medicalRecordResponse = medicalRecordService.create(body)
         return BaseResponse(
             code = 200,
@@ -57,11 +60,11 @@ class MedicalRecordController(val medicalRecordService: MedicalRecordService) {
 
     @PutMapping(
         value = ["api/medical-record/{idMedicalRecord}"],
+        consumes = [MediaType.APPLICATION_FORM_URLENCODED_VALUE],
         produces = [MediaType.APPLICATION_JSON_VALUE],
-        consumes = [MediaType.APPLICATION_JSON_VALUE]
     )
     fun updateMedicalRecord(
-        @PathVariable("idMedicalRecord") id: Int, @RequestBody body: UpdateMedicalRecordRequest
+        @PathVariable("idMedicalRecord") id: Int, body: UpdateMedicalRecordRequest
     ): BaseResponse<MedicalRecordResponse> {
         val medicalRecordResponse = medicalRecordService.update(id, body)
         return BaseResponse(
@@ -92,17 +95,22 @@ class MedicalRecordController(val medicalRecordService: MedicalRecordService) {
         @RequestParam(value = "idPatient") idPatient: String,
         @RequestParam(value = "size", defaultValue = "20") size: Int,
         @RequestParam(value = "page", defaultValue = "0") page: Int
-    ): BaseResponse<List<MedicalRecordResponse>> {
+    ): BaseResponsePagination<List<MedicalRecordResponse>> {
         val request = ListMedicalRecordRequest(
             size = size,
             page = page,
             idPatient = idPatient
         )
-        val medicalRecordResponses = medicalRecordService.list(request)
-        return BaseResponse(
+        val (medicalRecordResponses, pagination) = medicalRecordService.list(request)
+        return BaseResponsePagination(
             code = 200,
             status = Const.SUCCESS,
-            data = medicalRecordResponses
+            data = medicalRecordResponses,
+            page = PaginationResponse(
+                totalItems = pagination.numberOfElements,
+                currentPage = pagination.number,
+                lastPage = pagination.lastPage()
+            )
         )
     }
 
