@@ -41,8 +41,8 @@ class MedicalRecordServiceImpl(
 
         val medicalRecord = MedicalRecord(
             id = 0,
-            idPatient = request.idPatient,
-            mainComplaint = request.mainComplaint,
+            idPatient = request.idPatient!!,
+            mainComplaint = request.mainComplaint!!,
             additionalComplaint = request.additionalComplaint ?: "",
             historyOfDisease = request.historyOfDisease ?: "",
             checkUpResult = request.checkUpResult ?: "",
@@ -66,7 +66,7 @@ class MedicalRecordServiceImpl(
         validation.validate(request)
 
         medicalRecord.apply {
-            mainComplaint = request.mainComplaint
+            mainComplaint = request.mainComplaint!!
             additionalComplaint = request.additionalComplaint ?: ""
             historyOfDisease = request.historyOfDisease ?: ""
             checkUpResult = request.checkUpResult ?: ""
