@@ -1,8 +1,8 @@
 package com.codelogs.zeinholistic.restful.controllers
 
 import com.codelogs.zeinholistic.restful.data.models.response.BaseResponse
+import com.codelogs.zeinholistic.restful.error.NotFoundException
 import com.codelogs.zeinholistic.restful.utils.Const
-import javassist.NotFoundException
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.ResponseStatus
