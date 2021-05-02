@@ -18,10 +18,10 @@ import javax.validation.constraints.NotBlank
 
 data class CreateMedicalRecordRequest(
     @field:NotBlank
-    val idPatient: String,
+    val idPatient: String?,
 
     @field:NotBlank
-    val mainComplaint: String,
+    val mainComplaint: String?,
 
     val additionalComplaint: String? = "",
     val historyOfDisease: String? = "",
