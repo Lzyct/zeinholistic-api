@@ -31,10 +31,10 @@ class PatientController(val patientService: PatientService) {
 
     @PostMapping(
         value = ["api/patient"],
+        consumes = [MediaType.APPLICATION_FORM_URLENCODED_VALUE],
         produces = [MediaType.APPLICATION_JSON_VALUE],
-        consumes = [MediaType.APPLICATION_JSON_VALUE]
     )
-    fun createPatient(@RequestBody body: CreatePatientRequest): BaseResponse<PatientResponse> {
+    fun createPatient(body: CreatePatientRequest): BaseResponse<PatientResponse> {
         val patientResponse = patientService.create(body)
         return BaseResponse(
             code = 200,
@@ -59,11 +59,11 @@ class PatientController(val patientService: PatientService) {
 
     @PutMapping(
         value = ["api/patient/{idPatient}"],
+        consumes = [MediaType.APPLICATION_FORM_URLENCODED_VALUE],
         produces = [MediaType.APPLICATION_JSON_VALUE],
-        consumes = [MediaType.APPLICATION_JSON_VALUE]
     )
     fun updatePatient(
-        @PathVariable("idPatient") id: String, @RequestBody body: UpdatePatientRequest
+        @PathVariable("idPatient") id: String, body: UpdatePatientRequest
     ): BaseResponse<PatientResponse> {
         val patientResponse = patientService.update(id, body)
         return BaseResponse(
@@ -91,8 +91,8 @@ class PatientController(val patientService: PatientService) {
         produces = [MediaType.APPLICATION_JSON_VALUE]
     )
     fun listPatient(
-        @RequestParam(value = "size", defaultValue = "20") size: Int,
-        @RequestParam(value = "page", defaultValue = "1") page: Int
+        @RequestParam(value = "size", defaultValue = "10") size: Int,
+        @RequestParam(value = "page", defaultValue = "0") page: Int
     ): BaseResponsePagination<List<PatientResponse>> {
         val request = ListPatientRequest(size = size, page = page)
         val (patientResponses, pagination) = patientService.list(request)
@@ -101,9 +101,9 @@ class PatientController(val patientService: PatientService) {
             status = Const.SUCCESS,
             data = patientResponses,
             page = PaginationResponse(
-                totalItems = pagination.totalElements.toInt(),
+                totalItems = pagination.numberOfElements,
                 currentPage = pagination.number,
-                totalPages = pagination.totalPages
+                lastPage = pagination.totalPages - 1
             )
         )
     }
