@@ -3,10 +3,11 @@ package com.codelogs.zeinholistic.restful.controllers
 import com.codelogs.zeinholistic.restful.data.models.request.medicalrecord.CreateMedicalRecordRequest
 import com.codelogs.zeinholistic.restful.data.models.request.medicalrecord.ListMedicalRecordRequest
 import com.codelogs.zeinholistic.restful.data.models.request.medicalrecord.UpdateMedicalRecordRequest
-import com.codelogs.zeinholistic.restful.data.models.response.BaseResponse
-import com.codelogs.zeinholistic.restful.data.models.response.BaseResponsePagination
-import com.codelogs.zeinholistic.restful.data.models.response.MedicalRecordResponse
-import com.codelogs.zeinholistic.restful.data.models.response.PaginationResponse
+import com.codelogs.zeinholistic.restful.data.models.response.*
+import com.codelogs.zeinholistic.restful.data.models.response.wrapper.BaseResponse
+import com.codelogs.zeinholistic.restful.data.models.response.wrapper.BaseResponsePagination
+import com.codelogs.zeinholistic.restful.data.models.response.wrapper.Diagnostic
+import com.codelogs.zeinholistic.restful.data.models.response.wrapper.Pagination
 import com.codelogs.zeinholistic.restful.services.MedicalRecordService
 import com.codelogs.zeinholistic.restful.utils.Const
 import com.codelogs.zeinholistic.restful.utils.lastPage
@@ -38,8 +39,10 @@ class MedicalRecordController(val medicalRecordService: MedicalRecordService) {
     fun createMedicalRecord(body: CreateMedicalRecordRequest): BaseResponse<MedicalRecordResponse> {
         val medicalRecordResponse = medicalRecordService.create(body)
         return BaseResponse(
-            code = 200,
-            status = Const.SUCCESS,
+            diagnostic = Diagnostic(
+                code = 200,
+                status = Const.SUCCESS,
+            ),
             data = medicalRecordResponse
         )
     }
@@ -51,8 +54,10 @@ class MedicalRecordController(val medicalRecordService: MedicalRecordService) {
     fun getMedicalRecord(@PathVariable("idMedicalRecord") id: Int): BaseResponse<MedicalRecordResponse> {
         val medicalRecordResponse = medicalRecordService.get(id)
         return BaseResponse(
-            code = 200,
-            status = Const.SUCCESS,
+            diagnostic = Diagnostic(
+                code = 200,
+                status = Const.SUCCESS,
+            ),
             data = medicalRecordResponse
         )
     }
@@ -68,8 +73,10 @@ class MedicalRecordController(val medicalRecordService: MedicalRecordService) {
     ): BaseResponse<MedicalRecordResponse> {
         val medicalRecordResponse = medicalRecordService.update(id, body)
         return BaseResponse(
-            code = 200,
-            status = Const.SUCCESS,
+            diagnostic = Diagnostic(
+                code = 200,
+                status = Const.SUCCESS,
+            ),
             data = medicalRecordResponse
         )
     }
@@ -81,8 +88,10 @@ class MedicalRecordController(val medicalRecordService: MedicalRecordService) {
     fun deleteMedicalRecord(@PathVariable(value = "idMedicalRecord") id: Int): BaseResponse<Int> {
         medicalRecordService.delete(id)
         return BaseResponse(
-            code = 200,
-            status = Const.SUCCESS,
+            diagnostic = Diagnostic(
+                code = 200,
+                status = Const.SUCCESS,
+            ),
             data = id
         )
     }
@@ -103,10 +112,12 @@ class MedicalRecordController(val medicalRecordService: MedicalRecordService) {
         )
         val (medicalRecordResponses, pagination) = medicalRecordService.list(request)
         return BaseResponsePagination(
-            code = 200,
-            status = Const.SUCCESS,
+            diagnostic = Diagnostic(
+                code = 200,
+                status = Const.SUCCESS,
+            ),
             data = medicalRecordResponses,
-            page = PaginationResponse(
+            page = Pagination(
                 totalItems = pagination.numberOfElements,
                 currentPage = pagination.number,
                 lastPage = pagination.lastPage()

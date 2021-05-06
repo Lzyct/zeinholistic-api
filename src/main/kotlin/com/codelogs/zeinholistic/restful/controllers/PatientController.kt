@@ -3,10 +3,11 @@ package com.codelogs.zeinholistic.restful.controllers
 import com.codelogs.zeinholistic.restful.data.models.request.patient.CreatePatientRequest
 import com.codelogs.zeinholistic.restful.data.models.request.patient.ListPatientRequest
 import com.codelogs.zeinholistic.restful.data.models.request.patient.UpdatePatientRequest
-import com.codelogs.zeinholistic.restful.data.models.response.BaseResponse
-import com.codelogs.zeinholistic.restful.data.models.response.BaseResponsePagination
-import com.codelogs.zeinholistic.restful.data.models.response.PaginationResponse
 import com.codelogs.zeinholistic.restful.data.models.response.PatientResponse
+import com.codelogs.zeinholistic.restful.data.models.response.wrapper.BaseResponse
+import com.codelogs.zeinholistic.restful.data.models.response.wrapper.BaseResponsePagination
+import com.codelogs.zeinholistic.restful.data.models.response.wrapper.Diagnostic
+import com.codelogs.zeinholistic.restful.data.models.response.wrapper.Pagination
 import com.codelogs.zeinholistic.restful.services.PatientService
 import com.codelogs.zeinholistic.restful.utils.Const
 import com.codelogs.zeinholistic.restful.utils.lastPage
@@ -38,8 +39,10 @@ class PatientController(val patientService: PatientService) {
     fun createPatient(body: CreatePatientRequest): BaseResponse<PatientResponse> {
         val patientResponse = patientService.create(body)
         return BaseResponse(
-            code = 200,
-            status = Const.SUCCESS,
+            diagnostic = Diagnostic(
+                code = 200,
+                status = Const.SUCCESS
+            ),
             data = patientResponse
         )
     }
@@ -51,12 +54,13 @@ class PatientController(val patientService: PatientService) {
     fun getPatient(@PathVariable("idPatient") id: String): BaseResponse<PatientResponse> {
         val patientResponse = patientService.get(id)
         return BaseResponse(
-            code = 200,
-            status = Const.SUCCESS,
+            diagnostic = Diagnostic(
+                code = 200,
+                status = Const.SUCCESS,
+            ),
             data = patientResponse
         )
     }
-
 
     @PutMapping(
         value = ["api/patient/{idPatient}"],
@@ -68,8 +72,10 @@ class PatientController(val patientService: PatientService) {
     ): BaseResponse<PatientResponse> {
         val patientResponse = patientService.update(id, body)
         return BaseResponse(
-            code = 200,
-            status = Const.SUCCESS,
+            diagnostic = Diagnostic(
+                code = 200,
+                status = Const.SUCCESS,
+            ),
             data = patientResponse
         )
     }
@@ -81,8 +87,10 @@ class PatientController(val patientService: PatientService) {
     fun deletePatient(@PathVariable(value = "idPatient") id: String): BaseResponse<String> {
         patientService.delete(id)
         return BaseResponse(
-            code = 200,
-            status = Const.SUCCESS,
+            diagnostic = Diagnostic(
+                code = 200,
+                status = Const.SUCCESS,
+            ),
             data = id
         )
     }
@@ -98,10 +106,12 @@ class PatientController(val patientService: PatientService) {
         val request = ListPatientRequest(size = size, page = page)
         val (patientResponses, pagination) = patientService.list(request)
         return BaseResponsePagination(
-            code = 200,
-            status = Const.SUCCESS,
+            diagnostic = Diagnostic(
+                code = 200,
+                status = Const.SUCCESS,
+            ),
             data = patientResponses,
-            page = PaginationResponse(
+            page = Pagination(
                 totalItems = pagination.numberOfElements,
                 currentPage = pagination.number,
                 lastPage = pagination.lastPage()
