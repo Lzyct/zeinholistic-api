@@ -1,4 +1,4 @@
-package com.codelogs.zeinholistic.restful.data.models.response
+package com.codelogs.zeinholistic.restful.data.models.response.wrapper
 
 /**
  **********************************************
