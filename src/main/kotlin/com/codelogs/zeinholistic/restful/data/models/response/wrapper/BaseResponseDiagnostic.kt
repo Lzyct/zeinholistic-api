@@ -1,4 +1,4 @@
-package com.codelogs.zeinholistic.restful.data.models.response
+package com.codelogs.zeinholistic.restful.data.models.response.wrapper
 
 /**
  **********************************************
@@ -13,8 +13,8 @@ package com.codelogs.zeinholistic.restful.data.models.response
  **********************************************
  * © 2021 | All Right Reserved
  */
-data class BaseResponse<T>(
-    val code: Int,
-    val status: String,
-    val data: T
+
+class BaseResponseDiagnostic<T>(
+    val diagnostic: Diagnostic
 )
+

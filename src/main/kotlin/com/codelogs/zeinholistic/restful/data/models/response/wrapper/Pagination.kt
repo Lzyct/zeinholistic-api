@@ -1,21 +1,20 @@
-package com.codelogs.zeinholistic.restful.data.models.response
+package com.codelogs.zeinholistic.restful.data.models.response.wrapper
 
 /**
  **********************************************
- *  zeinholistic-restful
+ *  zeinholistic-api
  *  |-> com.codelogs.zeinholistic.restful.data.models.response
- *    |-> BaseResponse.kt
+ *    |-> Pagination.kt
  * --------------------------------------------
  * Created by Mudassir 🧑🏻‍💻
- * on 📅 25/04/21 🕰 22:53 with ❤️
+ * on 📅 06/05/21 🕰 14:29 with ❤️
  * email : hey.mudassir@gmail.com
  * github : https://www.github.com/ukieTux
  **********************************************
  * © 2021 | All Right Reserved
  */
-data class BaseResponsePagination<T>(
-    val code: Int,
-    val status: String,
-    val data: T,
-    val page: PaginationResponse
+data class Pagination(
+    val totalItems: Int,
+    val currentPage: Int,
+    val lastPage: Int
 )
