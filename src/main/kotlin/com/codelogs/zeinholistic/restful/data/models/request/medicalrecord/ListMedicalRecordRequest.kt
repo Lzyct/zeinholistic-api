@@ -16,6 +16,7 @@ package com.codelogs.zeinholistic.restful.data.models.request.medicalrecord
 
 data class ListMedicalRecordRequest(
     val idPatient: String,
+    val q: String,
     val page: Int,
     val size: Int
 )

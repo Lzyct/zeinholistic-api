@@ -100,10 +100,11 @@ class PatientController(val patientService: PatientService) {
         produces = [MediaType.APPLICATION_JSON_VALUE]
     )
     fun listPatient(
+        @RequestParam(value = "q", defaultValue = "") q: String,
         @RequestParam(value = "size", defaultValue = "10") size: Int,
         @RequestParam(value = "page", defaultValue = "0") page: Int
     ): BaseResponsePagination<List<PatientResponse>> {
-        val request = ListPatientRequest(size = size, page = page)
+        val request = ListPatientRequest(size = size, page = page, q = q)
         val (patientResponses, pagination) = patientService.list(request)
         return BaseResponsePagination(
             diagnostic = Diagnostic(

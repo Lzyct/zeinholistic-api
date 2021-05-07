@@ -80,7 +80,9 @@ class PatientServiceImpl(
     }
 
     override fun list(request: ListPatientRequest): Pair<List<PatientResponse>, Page<Patient>> {
-        val page = patientRepository.findAll(PageRequest.of(request.page, request.size))
+        val page = if (request.q.isEmpty())
+            patientRepository.findAll(PageRequest.of(request.page, request.size))
+        else patientRepository.findByNameContaining(request.q, PageRequest.of(request.page, request.size))
         val patients: List<Patient> = page.get().collect(Collectors.toList())
         return Pair(patients.map { patient -> convertToPatientResponse(patient) }, page)
     }

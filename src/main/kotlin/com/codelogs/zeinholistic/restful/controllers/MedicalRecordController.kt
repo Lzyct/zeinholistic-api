@@ -3,7 +3,7 @@ package com.codelogs.zeinholistic.restful.controllers
 import com.codelogs.zeinholistic.restful.data.models.request.medicalrecord.CreateMedicalRecordRequest
 import com.codelogs.zeinholistic.restful.data.models.request.medicalrecord.ListMedicalRecordRequest
 import com.codelogs.zeinholistic.restful.data.models.request.medicalrecord.UpdateMedicalRecordRequest
-import com.codelogs.zeinholistic.restful.data.models.response.*
+import com.codelogs.zeinholistic.restful.data.models.response.MedicalRecordResponse
 import com.codelogs.zeinholistic.restful.data.models.response.wrapper.BaseResponse
 import com.codelogs.zeinholistic.restful.data.models.response.wrapper.BaseResponsePagination
 import com.codelogs.zeinholistic.restful.data.models.response.wrapper.Diagnostic
@@ -102,13 +102,15 @@ class MedicalRecordController(val medicalRecordService: MedicalRecordService) {
     )
     fun listMedicalRecord(
         @RequestParam(value = "idPatient") idPatient: String,
+        @RequestParam(value = "q", defaultValue = "") q: String,
         @RequestParam(value = "size", defaultValue = "20") size: Int,
         @RequestParam(value = "page", defaultValue = "0") page: Int
     ): BaseResponsePagination<List<MedicalRecordResponse>> {
         val request = ListMedicalRecordRequest(
             size = size,
             page = page,
-            idPatient = idPatient
+            idPatient = idPatient,
+            q = q
         )
         val (medicalRecordResponses, pagination) = medicalRecordService.list(request)
         return BaseResponsePagination(

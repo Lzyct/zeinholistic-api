@@ -87,7 +87,15 @@ class MedicalRecordServiceImpl(
 
     override fun list(request: ListMedicalRecordRequest): Pair<List<MedicalRecordResponse>, Page<MedicalRecord>> {
         val page =
-            medicalRecordRepository.findAllByIdPatient(request.idPatient, PageRequest.of(request.page, request.size))
+            if (request.q.isEmpty()) medicalRecordRepository.findAllByIdPatient(
+                request.idPatient,
+                PageRequest.of(request.page, request.size)
+            )
+            else medicalRecordRepository.findAllByIdPatientAndMainComplaintContaining(
+                request.idPatient,
+                request.q,
+                PageRequest.of(request.page, request.size)
+            )
         val medicalRecords: List<MedicalRecord> = page.get().collect(Collectors.toList())
         return Pair(medicalRecords.map { medicalRecord -> convertToMedicalRecordResponse(medicalRecord) }, page)
     }

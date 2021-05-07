@@ -19,5 +19,14 @@ import org.springframework.data.jpa.repository.JpaRepository
  * © 2021 | All Right Reserved
  */
 interface MedicalRecordRepository : JpaRepository<MedicalRecord, Int> {
-    fun findAllByIdPatient(idPatient: String, pageable: Pageable): Page<MedicalRecord>
+    fun findAllByIdPatient(
+        idPatient: String,
+        pageable: Pageable
+    ): Page<MedicalRecord>
+
+    fun findAllByIdPatientAndMainComplaintContaining(
+        idPatient: String,
+        mainComplaint: String,
+        pageable: Pageable
+    ): Page<MedicalRecord>
 }
