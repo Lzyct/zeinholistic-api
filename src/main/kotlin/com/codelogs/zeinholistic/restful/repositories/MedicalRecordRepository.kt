@@ -29,4 +29,6 @@ interface MedicalRecordRepository : JpaRepository<MedicalRecord, Int> {
         mainComplaint: String,
         pageable: Pageable
     ): Page<MedicalRecord>
+
+    fun deleteAllByIdPatient(idPatient: String)
 }
