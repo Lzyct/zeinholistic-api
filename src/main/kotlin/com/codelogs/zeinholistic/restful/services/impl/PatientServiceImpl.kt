@@ -34,7 +34,7 @@ import java.util.stream.Collectors
  */
 
 @Service
-@Transactional
+@Transactional //Add transactional annotation to enable multiple query
 class PatientServiceImpl(
     val patientRepository: PatientRepository,
     val medicalRecordRepository: MedicalRecordRepository,
