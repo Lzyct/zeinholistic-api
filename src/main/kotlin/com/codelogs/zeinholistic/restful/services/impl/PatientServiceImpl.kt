@@ -6,6 +6,7 @@ import com.codelogs.zeinholistic.restful.data.models.request.patient.ListPatient
 import com.codelogs.zeinholistic.restful.data.models.request.patient.UpdatePatientRequest
 import com.codelogs.zeinholistic.restful.data.models.response.PatientResponse
 import com.codelogs.zeinholistic.restful.error.NotFoundException
+import com.codelogs.zeinholistic.restful.repositories.MedicalRecordRepository
 import com.codelogs.zeinholistic.restful.repositories.PatientRepository
 import com.codelogs.zeinholistic.restful.services.PatientService
 import com.codelogs.zeinholistic.restful.utils.Validation
@@ -13,8 +14,10 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import java.util.*
 import java.util.stream.Collectors
+
 
 /**
  **********************************************
@@ -31,10 +34,13 @@ import java.util.stream.Collectors
  */
 
 @Service
+@Transactional
 class PatientServiceImpl(
     val patientRepository: PatientRepository,
+    val medicalRecordRepository: MedicalRecordRepository,
     val validation: Validation
 ) : PatientService {
+
 
     override fun create(request: CreatePatientRequest): PatientResponse {
         validation.validate(request)
@@ -77,6 +83,9 @@ class PatientServiceImpl(
     override fun delete(id: String) {
         val patient = findByIdOrNotFound(id)
         patientRepository.delete(patient)
+
+        // delete all medical record from patient
+        medicalRecordRepository.deleteAllByIdPatient(id)
     }
 
     override fun list(request: ListPatientRequest): Pair<List<PatientResponse>, Page<Patient>> {
