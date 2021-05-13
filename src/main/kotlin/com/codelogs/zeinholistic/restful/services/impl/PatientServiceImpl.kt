@@ -12,6 +12,7 @@ import com.codelogs.zeinholistic.restful.services.PatientService
 import com.codelogs.zeinholistic.restful.utils.Validation
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Sort
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -90,8 +91,13 @@ class PatientServiceImpl(
 
     override fun list(request: ListPatientRequest): Pair<List<PatientResponse>, Page<Patient>> {
         val page = if (request.q.isEmpty())
-            patientRepository.findAll(PageRequest.of(request.page, request.size))
-        else patientRepository.findByNameContaining(request.q, PageRequest.of(request.page, request.size))
+            patientRepository.findAll(
+                PageRequest.of(request.page, request.size, Sort.by(Sort.Direction.DESC, "createdAt")),
+            )
+        else patientRepository.findByNameContaining(
+            request.q,
+            PageRequest.of(request.page, request.size, Sort.by(Sort.Direction.DESC, "createdAt"))
+        )
         val patients: List<Patient> = page.get().collect(Collectors.toList())
         return Pair(patients.map { patient -> convertToPatientResponse(patient) }, page)
     }

@@ -11,6 +11,7 @@ import com.codelogs.zeinholistic.restful.services.MedicalRecordService
 import com.codelogs.zeinholistic.restful.utils.Validation
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Sort
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import java.util.*
@@ -89,12 +90,12 @@ class MedicalRecordServiceImpl(
         val page =
             if (request.q.isEmpty()) medicalRecordRepository.findAllByIdPatient(
                 request.idPatient,
-                PageRequest.of(request.page, request.size)
+                PageRequest.of(request.page, request.size, Sort.by(Sort.Direction.DESC, "createdAt"))
             )
             else medicalRecordRepository.findAllByIdPatientAndMainComplaintContaining(
                 request.idPatient,
                 request.q,
-                PageRequest.of(request.page, request.size)
+                PageRequest.of(request.page, request.size, Sort.by(Sort.Direction.DESC, "createdAt"))
             )
         val medicalRecords: List<MedicalRecord> = page.get().collect(Collectors.toList())
         return Pair(medicalRecords.map { medicalRecord -> convertToMedicalRecordResponse(medicalRecord) }, page)
