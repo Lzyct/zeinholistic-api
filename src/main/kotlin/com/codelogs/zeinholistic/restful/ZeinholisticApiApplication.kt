@@ -8,11 +8,8 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 
 
-
-
-
 @SpringBootApplication
-class ZeinholisticApiApplication{
+class ZeinholisticApiApplication {
 
     // Override allow origin to url client to fix CORS
     @Bean
@@ -20,6 +17,8 @@ class ZeinholisticApiApplication{
         return object : WebMvcConfigurer {
             override fun addCorsMappings(registry: CorsRegistry) {
                 registry.addMapping("/**").allowedOrigins("http://localhost:8181")
+                    .allowedMethods("GET", "POST", "PUT", "DELETE")
+
             }
         }
     }
