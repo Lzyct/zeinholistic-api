@@ -19,7 +19,7 @@ class ZeinholisticApiApplication{
     fun corsConfigurer(): WebMvcConfigurer? {
         return object : WebMvcConfigurer {
             override fun addCorsMappings(registry: CorsRegistry) {
-                registry.addMapping("/**").allowedOrigins("http://localhost:8989")
+                registry.addMapping("/**").allowedOrigins("http://localhost:8181")
             }
         }
     }
