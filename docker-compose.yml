@@ -1,7 +1,12 @@
 version: '3.8'
 
 services:
-  zein-holiscitc-api:
+  zein-holistic-web:
+    container_name: "zein-holistic-web"
+    image: zein-holistic-web:1.0.0
+    ports:
+      - 8181:80
+  zein-holistic-api:
     container_name: "zein-holistic-api"
     image: zein-holistic-api:1.0.0
     ports:
@@ -19,6 +24,7 @@ services:
       MYSQL_USER: "ukieTux"
       MYSQL_PASSWORD: "sembaran6"
       MYSQL_DATABASE: "zeinholistic"
+      TZ: "Asia/Makassar"
     ports:
       - "3307:3306"
     volumes:
