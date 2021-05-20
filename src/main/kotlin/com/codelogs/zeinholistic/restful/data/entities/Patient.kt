@@ -1,7 +1,10 @@
 package com.codelogs.zeinholistic.restful.data.entities
 
 import java.util.*
-import javax.persistence.*
+import javax.persistence.Column
+import javax.persistence.Entity
+import javax.persistence.Id
+import javax.persistence.Table
 
 /**
  **********************************************
@@ -19,20 +22,20 @@ import javax.persistence.*
 @Entity
 @Table(name = "patient")
  class Patient(
-    @Id
-    val id: String,
-    @Column(name = "name")
-    var name: String,
-    @Column(name = "sex")
-    var sex: String,
-    @Column(name = "birthday")
-    var birthday: String,
-    @Column(name = "address")
-    var address: String,
-    @Column(name = "phone_number")
-    var phoneNumber: String,
-    @Column(name = "createdAt")
-    override val createdAt: Date,
-    @Column(name = "updatedAt")
-    override var updatedAt: Date?,
+ @Id
+ val id: String,
+ @Column(name = "name")
+ var name: String,
+ @Column(name = "sex")
+ var sex: String,
+ @Column(name = "birthday")
+ var birthday: Date,
+ @Column(name = "address")
+ var address: String,
+ @Column(name = "phone_number")
+ var phoneNumber: String,
+ @Column(name = "createdAt")
+ override val createdAt: Date,
+ @Column(name = "updatedAt")
+ override var updatedAt: Date?,
 ) : BaseEntity

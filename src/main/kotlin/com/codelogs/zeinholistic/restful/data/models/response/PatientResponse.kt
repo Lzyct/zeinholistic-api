@@ -20,7 +20,7 @@ data class PatientResponse(
     val id: String,
     val name: String,
     val sex: String,
-    val birthday: String,
+    val birthday: Date,
     val address: String,
     val phoneNumber: String,
     val createdAt: Date,
