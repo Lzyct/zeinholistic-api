@@ -16,5 +16,7 @@ package com.codelogs.zeinholistic.restful.data.models.request.patient
 data class ListPatientRequest(
     val q: String,
     val page: Int,
-    val size: Int
+    val size: Int,
+    val filter: String,
+    val sex: String,
 )

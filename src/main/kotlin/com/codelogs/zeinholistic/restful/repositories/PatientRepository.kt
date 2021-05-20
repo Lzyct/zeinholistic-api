@@ -4,7 +4,6 @@ import com.codelogs.zeinholistic.restful.data.entities.Patient
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository
-import org.springframework.data.jpa.repository.Query
 
 /**
  **********************************************
@@ -21,4 +20,8 @@ import org.springframework.data.jpa.repository.Query
  */
 interface PatientRepository : JpaRepository<Patient, String> {
     fun findByNameContaining(name: String, pageable: Pageable): Page<Patient>
+
+    fun findByNameAndSexContaining(name: String, sex: String, pageable: Pageable): Page<Patient>
+
+    fun findBySexContaining(sex: String, pageable: Pageable): Page<Patient>
 }

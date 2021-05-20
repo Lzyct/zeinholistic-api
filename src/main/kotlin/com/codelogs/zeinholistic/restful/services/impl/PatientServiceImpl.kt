@@ -90,14 +90,69 @@ class PatientServiceImpl(
     }
 
     override fun list(request: ListPatientRequest): Pair<List<PatientResponse>, Page<Patient>> {
-        val page = if (request.q.isEmpty())
-            patientRepository.findAll(
-                PageRequest.of(request.page, request.size, Sort.by(Sort.Direction.DESC, "createdAt")),
-            )
-        else patientRepository.findByNameContaining(
-            request.q,
-            PageRequest.of(request.page, request.size, Sort.by(Sort.Direction.DESC, "createdAt"))
-        )
+        val filter = request.filter.split("_")
+        val field = filter[0]
+        val order = filter[1]
+
+        val page: Page<Patient>
+
+        if (request.q.isEmpty()) {
+
+            page = if (request.sex != "semua")
+                patientRepository.findBySexContaining(
+                    request.sex,
+                    PageRequest.of(
+                        request.page,
+                        request.size,
+                        Sort.by(
+                            if (order == "asc")
+                                Sort.Direction.ASC
+                            else Sort.Direction.DESC, field
+                        )
+                    ),
+                ) else
+                patientRepository.findAll(
+                    PageRequest.of(
+                        request.page,
+                        request.size,
+                        Sort.by(
+                            if (order == "asc")
+                                Sort.Direction.ASC
+                            else Sort.Direction.DESC, field
+                        )
+                    ),
+                )
+
+        } else {
+            page = if (request.sex != "semua")
+                patientRepository.findByNameAndSexContaining(
+                    request.q,
+                    request.sex,
+                    PageRequest.of(
+                        request.page,
+                        request.size,
+                        Sort.by(
+                            if (order == "asc")
+                                Sort.Direction.ASC
+                            else Sort.Direction.DESC, field
+                        )
+                    )
+                )
+            else
+                patientRepository.findByNameContaining(
+                    request.q,
+                    PageRequest.of(
+                        request.page,
+                        request.size,
+                        Sort.by(
+                            if (order == "asc")
+                                Sort.Direction.ASC
+                            else Sort.Direction.DESC, field
+                        )
+                    )
+                )
+        }
+
         val patients: List<Patient> = page.get().collect(Collectors.toList())
         return Pair(patients.map { patient -> convertToPatientResponse(patient) }, page)
     }

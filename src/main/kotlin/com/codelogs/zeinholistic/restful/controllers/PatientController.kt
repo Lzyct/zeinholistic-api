@@ -102,9 +102,17 @@ class PatientController(val patientService: PatientService) {
     fun listPatient(
         @RequestParam(value = "q", defaultValue = "") q: String,
         @RequestParam(value = "size", defaultValue = "20") size: Int,
-        @RequestParam(value = "page", defaultValue = "0") page: Int
+        @RequestParam(value = "page", defaultValue = "0") page: Int,
+        @RequestParam(value = "sex", defaultValue = "semua") sex: String,
+        @RequestParam(value = "filter", defaultValue = "createdAt_desc") filter: String
     ): BaseResponsePagination<List<PatientResponse>> {
-        val request = ListPatientRequest(size = size, page = page, q = q)
+        val request = ListPatientRequest(
+            size = size,
+            page = page,
+            q = q,
+            filter = filter,
+            sex = sex
+        )
         val (patientResponses, pagination) = patientService.list(request)
         return BaseResponsePagination(
             diagnostic = Diagnostic(
