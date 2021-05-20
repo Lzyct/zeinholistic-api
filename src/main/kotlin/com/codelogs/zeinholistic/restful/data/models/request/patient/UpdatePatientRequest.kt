@@ -2,6 +2,7 @@ package com.codelogs.zeinholistic.restful.data.models.request.patient
 
 import java.util.*
 import javax.validation.constraints.NotBlank
+import javax.validation.constraints.NotNull
 
 
 /**
@@ -25,7 +26,7 @@ data class UpdatePatientRequest(
     @field:NotBlank
     val sex: String?,
 
-    @field:NotBlank
+    @field:NotNull
     val birthday: Date?,
 
     @field:NotBlank
